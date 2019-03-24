@@ -2115,8 +2115,8 @@ let mockedData = {
 
 let store = new Vuex.Store({
     state: {
-        username: 'jinjin',
-        role: '进近',
+        username: 'tatai',
+        role: '塔台',
 
         // 表格数据状态
         dataState: {
@@ -2135,11 +2135,11 @@ let store = new Vuex.Store({
             BOTH: 2
         },
 
-        enterPorts: process.env.NODE_ENV === 'production' ? [...mockedData.enterPorts] : [],
-        leavePorts: process.env.NODE_ENV === 'production' ? [...mockedData.leavePorts] : [],
+        enterPorts: process.env.NODE_ENV === 'development' ? [...mockedData.enterPorts] : [],
+        leavePorts: process.env.NODE_ENV === 'development' ? [...mockedData.leavePorts] : [],
 
-        enterHistory: process.env.NODE_ENV === 'production' ? [...mockedData.enterHistory] : [],
-        leaveHistory: process.env.NODE_ENV === 'production' ? [...mockedData.leaveHistory] : [],
+        enterHistory: process.env.NODE_ENV === 'development' ? [...mockedData.enterHistory] : [],
+        leaveHistory: process.env.NODE_ENV === 'development' ? [...mockedData.leaveHistory] : [],
 
         "JNowTime": 1521780180539,
         historyDataType: 2,
@@ -2202,14 +2202,14 @@ let store = new Vuex.Store({
         updateAllData(state,data){
 
             state["JNowTime"] = data.JNowTime
-            state.enterPorts = data.enterPorts
-            state.leavePorts = data.leavePorts
+            state.enterPorts = data.enter
+            state.leavePorts = data.leave
             state.dataState.trackId = data.trackId
         }
     },
     actions: {
         refreshAllData({state,commit}, trackId) {
-            return http.get('/jinjinr', {
+            return http.get('/tatair', {
                 params: {
                     trackId
                 }
@@ -2221,7 +2221,7 @@ let store = new Vuex.Store({
                 })
         },
         refreshHistoryData({state}, payload) {
-            return http.get('/jinjin/history', {
+            return http.get('/tatair/history', {
                 params: {
                     start: payload.start,
                     end: payload.end

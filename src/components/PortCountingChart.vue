@@ -91,7 +91,7 @@ ${(v.seriesName === '进港' ? that.mapedEnterData : that.mapedLeaveData).conten
                         //     {
                         //         type: 'category',
                         //         boundaryGap: false,
-                        //         data: Array.from({length: 20}).map((v, i) => i),
+                        //         data: Array.from({length: 10}).map((v, i) => i),
                         //         axisLabel: {
                         //             show: true,
                         //             interval: 0,
@@ -105,7 +105,7 @@ ${(v.seriesName === '进港' ? that.mapedEnterData : that.mapedLeaveData).conten
                                 type: 'value',
                                 boundaryGap: false,
                                 min: 0,
-                                max: 20,
+                                max: 10,
                                 interval: 1,
                                 axisLabel: {
                                     show: true,
@@ -120,7 +120,7 @@ ${(v.seriesName === '进港' ? that.mapedEnterData : that.mapedLeaveData).conten
                                 type: 'value',
                                 boundaryGap: false,
                                 min: 0,
-                                max: 20,
+                                max: 10,
                                 interval: 1,
                                 axisLabel: {
                                     show: true,
@@ -192,18 +192,18 @@ ${(v.seriesName === '进港' ? that.mapedEnterData : that.mapedLeaveData).conten
                     res.num[i] = 0
                     res.content[i] = []
                 }
+                const MAX_INDEX = res.num.length - 1
                 // 当前时间所在的序号
                 let nowIndex = Math.ceil((this.now - this.timeStart) / this.step / 60 / 1000)
                 arr.forEach(v => {
-                    let startIndex = Math.ceil((this.now + v.minutes * 60 * 1000 - this.timeStart) / this.step / 60 / 1000),
-                        endIndex = Math.ceil((this.now + v.minutes * 60 * 1000 + v.interval * 60 * 1000 - this.timeStart) / this.step / 60 / 1000)
-                    let isUnderControl = startIndex <= nowIndex && nowIndex <= endIndex
+                    let startIndex = Math.ceil((this.now + v.minutes * 60 * 1000 - this.timeStart) / this.step / 60 / 1000)
                     startIndex = Math.max(startIndex, 0)
-                    endIndex = Math.min(endIndex, Math.floor((this.duration + 1) * 60 / this.step) + 1)
-                    for (let i = startIndex; i <= endIndex; i++) {
-                        res.num[i]++
-                        res.content[i].push({value: v.arcid, isUnderControl})
+                    if (startIndex > MAX_INDEX) {
+                        return
                     }
+                    let isUnderControl = startIndex == nowIndex
+                    res.num[startIndex]++
+                    res.content[startIndex].push({value: v.arcid, isUnderControl})
                 })
                 return res
             }

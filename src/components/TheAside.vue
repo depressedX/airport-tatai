@@ -6,10 +6,10 @@
         <p class="role">身份：{{role}}</p>
         <div class="button-group">
             <router-link to="/prediction" style="display: inline-block;margin-bottom: .5em">
-                <el-button type="primary"  style="width: 100%">进近流量预测</el-button>
+                <el-button type="primary"  style="width: 100%">塔台流量预测</el-button>
             </router-link>
             <router-link to="/statistics" style="display: inline-block;margin-bottom: 1em">
-                <el-button type="primary"  style="width: 100%">进近流量统计</el-button>
+                <el-button type="primary"  style="width: 100%">塔台流量统计</el-button>
             </router-link>
             <a href="/logout" style="display: inline-block">
                 <el-button type="danger"  style="width: 100%">退出登录</el-button>
